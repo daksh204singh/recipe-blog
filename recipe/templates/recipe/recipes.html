@@ -1,0 +1,42 @@
+{% extends 'recipe/base.html' %}
+{% load static %}
+{% block content %}
+  <!-- ##### Best category Area Start ##### -->
+    <section class="best-category-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <br>
+                        <h3 style="color: rgb(0, 130, 0);"><span class="border-bottom">{{category_name}}<span></h3>
+                    </div>
+                </div>
+            </div>
+
+                <div class="row">
+                <!-- Single Best Receipe Area -->
+                {% for i in Recipe %}
+                <div class="col-12 col-sm-6 col-lg-4" style="padding: 25px;">
+                    <div class="single-best-receipe-area mb-30">
+                        <img src="{{i.recipe_img1.url}}" style="width: 400px;height: 230px; border-radius: 10%;" alt="">
+                        <div class="receipe-content receipe-headline">
+                            <a href="/recipe/receipedetail/{{i.id}}/">
+                                <h5>{{i.recipe_name}}</h5>
+                            </a>
+                            <div class="ratings">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- ##### Best category Area End ##### -->
+{% endblock %}

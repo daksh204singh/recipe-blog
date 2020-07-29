@@ -1,0 +1,79 @@
+{% extends 'recipe/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url({% static 'recipe/img/bg-img/breadcumb3.jpg' %});">
+	<div class="container h-100">
+		<div class="row h-100 align-items-center">
+			<div class="col-12">
+				<div class="breadcumb-text text-center">
+						<h2>Post Recipe</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
+<br><br>
+
+<div class="row">
+    <div class="col-12">
+        <div class="contact-form-area">
+            <form method="post"  enctype="multipart/form-data">
+                    {% csrf_token %}
+                <div class="row">
+                    <div class="col-12">
+                        <input type="text" class="form-control" id="subject" placeholder="Recipe Name" name="recipe_name">
+                    </div>
+                        <div class="col-12">
+                        <select class="form-control"  name="category">
+                            <option>--Select Category--</option>
+                            {% for i in catdata %}
+                                <option value="{{i.id}}">{{i.cat_name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <textarea name="recipe_des" class="form-control" id="message" cols="30" rows="10" placeholder="Recipe Description"></textarea>
+                    </div>
+                    <div class="col-12">
+                        <textarea name="recipe_ingredients" class="form-control" id="message" cols="30" rows="10" placeholder="Recipe Ingredients"></textarea>
+                    </div>
+                        <div class="col-12">
+                        <input type="text" class="form-control" id="subject" placeholder="Recipe Servings" name="recipe_servings">
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" id="subject" placeholder="Recipe Sources" name="recipe_sources">
+                    </div>
+                        <div class="col-12">
+                        <input type="text" class="form-control" id="subject" placeholder="Recipe preptime" name="recipe_preptime">
+                    </div>
+                        <div class="col-12">
+                        <input type="text" class="form-control" id="subject" placeholder="Recipe Cooktime" name="recipe_cooktime">
+                    </div>
+                        <div class="col-12">
+                            <label>Recipe img1</label>
+                        <input type="file" class="form-control"  name="recipe_img1">
+                    </div>
+                    <div class="col-12">
+                            <label>Recipe img2</label>
+                        <input type="file" class="form-control"  name="recipe_img2">
+                    </div>
+                    <div class="col-12">
+                            <label>Recipe img3</label>
+                        <input type="file" class="form-control"  name="recipe_img3">
+                    </div>
+                    <div class="col-12">
+                            <label>Recipe img4</label>
+                        <input type="file" class="form-control"  name="recipe_img4">
+                    </div>
+                    <div class="col-12 text-center">
+                        <button class="btn delicious-btn mt-30" type="submit">Post Recipe</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

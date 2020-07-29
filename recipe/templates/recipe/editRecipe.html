@@ -1,0 +1,189 @@
+{% extends 'recipe/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url({% static 'recipe/img/bg-img/breadcumb3.jpg' %});">
+	<div class="container h-100">
+		<div class="row h-100 align-items-center">
+			<div class="col-12">
+				<div class="breadcumb-text text-center">
+						<h2>Edit Recipe - {{ recipe.recipe_name }}</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
+<br><br>
+
+<form method="post"  enctype="multipart/form-data">
+	{% csrf_token %}
+	<div class="container">
+		<div class="row">
+				<div class="col-12 col-lg-2" style="bottom: -8px;">
+					<h6>Name</h6>
+				</div>
+				<div class="col-12 col-lg-10">
+					<input type="text" class="form-control" id="subject" value="{{recipe.recipe_name}}" name="recipe_name">
+				</div>
+				<br><br><br>
+				<div class="col-12 col-lg-2" style="bottom: -8px;">
+					<h6>Category</h6>
+				</div>
+				<div class="col-12 col-lg-10">
+					<select class="form-control" name="category">
+						<option value="{{recipe.recipe_cat.id}}">{{recipe.recipe_cat}}</option>
+						{% for i in catdata %}
+							<option value="{{i.id}}">{{i.cat_name}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<br><br><br>
+				<br>
+
+				<div class="col-12 col-lg-2" style="bottom: -8px;">
+					<h6>Description</h6>
+				</div>
+				<div class="col-12 col-lg-10">
+					<textarea name="recipe_des" class="form-control" id="message" cols="30" rows="10" placeholder="Recipe Description">{{recipe.recipe_des}}</textarea>
+				</div>
+				<br><br><br>
+				<br><br><br>
+				<br><br><br>
+				<br><br><br>
+				<br>
+
+				<div class="col-12 col-lg-2" style="bottom: -8px;">
+					<h6>Ingredients</h6>
+				</div>
+				<div class="col-12 col-lg-10">
+					<textarea name="recipe_ingredients" class="form-control" id="message" cols="30" rows="5" placeholder="Recipe Ingredients">{{recipe.recipe_ingredients}}</textarea>
+				</div>
+				<br><br><br>
+				<br><br><br>
+				<br>
+
+				<div class="col-12 col-lg-2" style="bottom: -8px;">
+					<h6>Servings</h6>
+				</div>
+				<div class="col-12 col-lg-10">
+					<input type="text" class="form-control" id="subject" placeholder="Recipe Servings" value="{{recipe.recipe_servings}}" name="recipe_servings">
+				</div>
+				<br><br><br>
+
+				<div class="col-12 col-lg-2" style="bottom: -8px;">
+					<h6>Sources</h6>
+				</div>
+				<div class="col-12 col-lg-10">
+					<input value="{{recipe.recipe_sources}}" type="text" class="form-control" id="subject" placeholder="Recipe Sources" name="recipe_sources">
+				</div>
+				<br><br><br>
+
+				<div class="col-12 col-lg-2" style="bottom: -8px;">
+					<h6>Preparation Time</h6>
+				</div>
+				<div class="col-12 col-lg-10">
+					<input value="{{recipe.recipe_preptime}}" type="text" class="form-control" id="subject" placeholder="Recipe preptime" name="recipe_preptime">
+				</div>
+				<br><br><br>
+
+				<div class="col-12 col-lg-2" style="bottom: -8px;">
+					<h6>Cooking Time</h6>
+				</div>
+				<div class="col-12 col-lg-10">
+					<input value="{{recipe.recipe_cooktime}}" type="text" class="form-control" id="subject" placeholder="Recipe Cooktime" name="recipe_cooktime">
+				</div>
+				<br><br><br>
+
+
+				
+
+				
+
+				
+				
+				
+				
+		</div>
+
+		<div class="row">
+			<div class="col-12 col-lg-2" style="bottom: -8px;">
+					<h6>Image 1</h6>
+				</div>
+				<div class="col-12 col-lg-2">
+					<img class="image-recipe" src="{{ recipe.recipe_img1.url }}" alt="image-1" height="100" width="100" style="border: 2px solid rgb(0, 195, 30);margin: 5px;">
+				</div>
+				<div class="col-12 col-lg-8">
+					<input type="file" class="form-control" onchange="readURL(this);" name="recipe_img1">
+				</div>
+				<br><br><br>
+		</div>
+
+		<div class="row">
+			<div class="col-12 col-lg-2" style="bottom: -8px;">
+					<h6>Image 2</h6>
+				</div>
+				<div class="col-12 col-lg-2">
+					<img class="image-recipe" src="{{ recipe.recipe_img2.url }}" alt="image-2" height="100" width="100" style="border: 2px solid rgb(0, 195, 30);margin: 5px;">
+				</div>
+				<div class="col-12 col-lg-8">
+					<input type="file" class="form-control" onchange="readURL(this);" name="recipe_img2">
+				</div>
+				<br><br><br>
+		</div>
+
+		<div class="row">
+			<div class="col-12 col-lg-2" style="bottom: -8px;">
+					<h6>Image 3</h6>
+				</div>
+				<div class="col-12 col-lg-2">
+					<img class="image-recipe" src="{{ recipe.recipe_img3.url }}" alt="image-2" height="100" width="100" style="border: 2px solid rgb(0, 195, 30);margin: 5px;">
+				</div>
+				<div class="col-12 col-lg-8">
+					<input type="file" onchange="readURL(this);" class="form-control"  name="recipe_img3">
+				</div>
+				<br><br><br>
+		</div>
+
+
+		<div class="row">
+			<div class="col-12 col-lg-2" style="bottom: -8px;">
+				<h6>Image 4</h6>
+			</div>
+			<div class="col-12 col-lg-2">
+				<img class="image-recipe" src="{{ recipe.recipe_img4.url }}" alt="image-2" height="100" width="100" style="border: 2px solid rgb(0, 195, 30); margin: 5px;">
+			</div>
+			<div class="col-12 col-lg-8">
+				<input type="file" class="form-control" onchange="readURL(this);"  name="recipe_img4">
+			</div>
+		</div>
+
+		<div class="col-12 text-center">
+			<button class="btn delicious-btn mt-30" type="submit">Update Recipe</button>
+		</div>
+		<br><br><br>
+	</div>
+</form>
+<script>
+
+
+     function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                	$(input).closest("div .row").find('.image-recipe')
+                        .attr('src', e.target.result)
+                        .width(200)
+                        .height(100);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'recipe/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="about-area section-padding-80">
+    <div class="container">        
+        <div class="row">
+            <div class="col-12">
+                <form method="POST">
+                    <fieldset>
+                        <legend><h3>Publish Recipe</h3></legend>
+                        {% comment %} {% csrf_token %} {% endcomment %}
+                        {% comment %} {{form.as_p}} {% endcomment %}
+                        <div id="ingredient">
+                                    <legend>Add Ingredient</legend>
+                                        <label for="ingredientName">Name: </label>
+                                        <input type="text" name="ingredientName" required>
+                                        <label for="unitOfMeasure">Unit of Measure: </label>
+                                        <input type="text" name="unitOfMeasure" required>
+                                        <label for="quanity">Quantity: </label>
+                                        <input type="number" name="quantity" step="0.01" required>
+                                <button type="button" onClick="addIngredient()" style="color:blue;" class="btn btn-outline-info">Add</button>
+                            <table id="ingredientsTable" border="1">
+                                <h5>Ingredients</h5>
+                                <thead>
+                                    <tr>
+                                        <th>Edit</th>
+                                        <th>Name</th>
+                                        <th>Unit of Measure</th>
+                                        <th>Amount</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <button style="color:blue;" class="btn btn-outline-info" type="submit">Publish</button>
+                    </fieldset>
+                </form></br>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<script>
+    function addIngredient() {
+        if ($('#ingredientsTable tbody').length == 0) {
+            $('#ingredientsTable').append("<tbody></tbody>");
+        }
+
+        $('#ingredientsTable tbody').append(
+            "<tr>" +
+                "<td>Test</td>" +
+                "<td>" + $('#ingredient input[name=ingredientName"]').val() + "</td>" +
+                "<td>" + "Test" + "</td>" +
+                "<td>" + "Test" + "</td>" +
+                "<td>" + "Test" + "</td>" +
+            "</tr>"
+        );
+    }
+
+
+    $(document).ready(function() {
+            ingredientsAdd();
+        });
+</script>
+{% endblock %}
+

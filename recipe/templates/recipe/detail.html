@@ -1,0 +1,268 @@
+{% extends "recipe/base.html" %}
+{% load static %}
+{% load recipe_extras %}
+{% block content %}
+<style>
+.rating {
+    float:left;
+    width:300px;
+}
+.rating span { float:right; position:relative; }
+.rating span input {
+    position:absolute;
+    top:0px;
+    left:0px;
+    opacity:0;
+}
+.rating span label {
+    display:inline-block;
+    width:30px;
+    height:30px;
+    text-align:center;
+    color:#FFF;
+    background:#ccc;
+    font-size:30px;
+    margin-right:2px;
+    line-height:30px;
+    border-radius:50%;
+    -webkit-border-radius:50%;
+}
+.rating span:hover ~ span label,
+.rating span:hover label,
+.rating span.checked label,
+.rating span.checked ~ span label {
+    background:#F90;
+    color:#FFF;
+}
+
+
+</style>
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url({% static 'recipe/img/bg-img/breadcumb3.jpg' %});">
+	<div class="container h-100">
+		<div class="row h-100 align-items-center">
+			<div class="col-12">
+				<div class="breadcumb-text text-center">
+					<h2>Recipe</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
+
+<div class="receipe-post-area section-padding-80 border-bottom">
+
+	<!-- Receipe Slider -->
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="receipe-slider owl-carousel">
+					<img src="{{ recipe.recipe_img1.url }}" style="width: 100%; height: 55vh;" alt="">
+					<img src="{{ recipe.recipe_img2.url }}" style="width: 100%; height: 55vh;" alt="">
+					<img src="{{ recipe.recipe_img3.url }}" style="width: 100%; height: 55vh;" alt="">
+					<img src="{{ recipe.recipe_img4.url }}" style="width: 100%; height: 55vh;" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Receipe Content Area -->
+	<div class="receipe-content-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-md-8">
+					<div class="receipe-headline my-5">
+						<span>{{recipe.recipe_date}}</span>
+						<h2>{{recipe.recipe_name}}</h2>
+						<div class="receipe-duration">
+							<h6>Prep: {{recipe.recipe_preptime}}</h6>
+							<h6>Cook: {{recipe.recipe_cooktime}}</h6>
+							<h6>Yields: {{recipe.recipe_servings}}</h6>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-md-4">
+					<div class="receipe-ratings text-right my-5">
+						<div class="ratings">
+								{% for j in rating_range %}
+										<i class="fa fa-star" aria-hidden="true"></i>
+								{% endfor %}
+								{% for k in empty_stars %}
+									<i class="fa fa-star-o" aria-hidden="true"></i>
+								{% endfor %}
+						</div>
+						<a href="#" class="btn delicious-btn">For Begginers</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-12 col-lg-8">
+                    {{recipe.recipe_des}}
+				</div>
+
+				<!-- Ingredients -->
+				<div class="col-12 col-lg-4">
+					<div class="ingredients">
+						<h4>Ingredients</h4>
+                        {{recipe.recipe_ingredients}}
+					</div>
+				</div>
+			</div>
+			</br>
+			</br>
+		</div>
+	</div>
+</div>
+
+<div class="recipe-post-area">
+	<div class="section-padding-80 comments-area border-bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="section-heading text-left">
+						<h3>Leave a comment</h3>
+					</div>
+				</div>
+			</div>
+			<div class="row border-bottom" style="padding-bottom: 3.5%;">
+				<div class="col-12">
+					{% if user.is_authenticated %}
+					<div class="contact-form-area">
+						<form action="/recipe/postComment/" method="post">
+							{% csrf_token %}
+							<div class="row">
+								<div class="col-12 col-lg-10">
+									<input type="text" class="form-control" id="subject" name="comment_subject" placeholder="Subject">
+								</div>
+								<div class="rating col-12 col-lg-2" style="bottom: -8px;">
+									<span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+									<span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+									<span class="checked"><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+									<span class="checked"><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+									<span class="checked"><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+									<input type="hidden" id="dbrating" name="rating" value="3">
+								</div>
+								<div class="col-12">
+									<textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
+								</div>
+								<input type="hidden" name="recipeId" value="{{ recipe.id }}">
+								<div class="col-12">
+									<button class="btn delicious-btn mt-30" type="submit">Post Comments</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					{% else %}
+						<span style="font-size: 20px;">Please <a style="font-size: 20px;color: blue;" href="{% url 'login' %}">login</a> to post a comment!</span>
+					{% endif %}
+				</div>
+			</div>
+			<br>
+			<br>
+			<div class="row border-bottom">
+				<div class="col-12">
+					<div class="section-heading text-left">
+						<h3>Comments ({{ commentsCount }})</h3>
+					</div>
+				{% for comment in comments %}
+				<div class="col-10 border-bottom">
+					<div class="row">
+						<div class="col-10 col-lg-6">
+							<span><img src="https://images.media-allrecipes.com/mobile/allrecipes/images/icon-user-default_v2.png" style="border-radius: 50%; border: 2px solid rgb(0, 195, 30); padding: 2px;"></span>
+							<span style="margin-left: 10px; display: inline-block;">
+								<a href="#" style="border-bottom: 1px solid rgb(0, 195, 30); color: blue; font-size: 18px;">{{comment.user}}</a>
+								<i style="font-size: 12px; padding-left: 5px;"> {{comment.create_at}}</i>
+							</span>	
+						</div>
+
+						<div class="col-10 col-lg-6" align="right" style="bottom: -16px;">
+							<div class="receipe-ratings my-5" style="display: inline;">
+								<div class="ratings" id="{{comment.id}}" style="display: inline;">
+									{% with ''|center:comment.rate as range %}
+										{% for i in range %}
+											<i class="fa fa-star" aria-hidden="true"></i>
+										{% endfor %}
+										{% with 5|subtract:comment.rate as emptyVal%}
+											{% with ''|center:emptyVal as emptyRange %}
+												{% for i in emptyRange %}
+													<i class="fa fa-star-o" aria-hidden="true"></i>
+												{% endfor %}
+											{% endwith %}
+										{% endwith %}
+									{% endwith %}
+								</div>
+							</div>	
+						</div>
+					</div>
+					<div class="col-10" style="margin-top: 15px;">
+						<span><h6><i>"{{comment.subject}}"</i></h6></span>
+					</div>
+					<div class="col-10" style="margin-top: 5px;">
+						<p style="font-weight: normal; color: black;">{{comment.message}}</p>
+					</div>
+				</div>
+				<br>
+				<br>
+				{% endfor %}
+			</div>
+			</div>
+		</div>
+
+		<div class="container section-padding-80-0">
+			<div class="row">
+				<div class="col-12">
+					<div class="section-heading text-left">
+						<h3>Similar Recipes</h3>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+            <!-- Single Best Receipe Area -->
+            {% for irecipe in similarRecipes %}
+            <div class="col-12 col-sm-6 col-lg-4">
+                <div class="single-best-receipe-area mb-30">
+                    <img src="{{irecipe.recipe_img1.url}}" style="width: 400px;height: 230px; border-radius: 10%;" alt="">
+                    <div class="receipe-content">
+                        <a href="/recipe/receipedetail/{{irecipe.id}}/">
+                            <h5>{{irecipe.recipe_name}}</h5>
+                        </a>
+                        <div class="ratings">
+							{% with ''|center:irecipe.rating as range %}
+								{% for i in range %}
+									<i class="fa fa-star" aria-hidden="true"></i>
+								{% endfor %}
+								{% with 5|subtract:irecipe.rating as emptyVal%}
+									{% with ''|center:emptyVal as emptyRange %}
+										{% for i in emptyRange %}
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+										{% endfor %}
+									{% endwith %}
+								{% endwith %}
+							{% endwith %}
+						</div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+		</div>
+	</div>
+</div>
+<script>
+    $(document).ready(function(){
+		// Check Radio-box
+		$(".rating input:radio").attr("checked", false);
+		$('.rating input').click(function () {
+			$(".rating span").removeClass('checked');
+			$(this).parent().addClass('checked');
+		});
+		$('input:radio').change(
+		function(){
+			document.getElementById('dbrating').value=this.value; 
+		});
+	});
+</script>
+{% endblock %}

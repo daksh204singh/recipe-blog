@@ -1,0 +1,12 @@
+{% if user.is_authenticated %}
+	<li><a href="{% url 'postrecipe' %}">Post Recipe</a></li>
+	<li><a href="#">My Posts</a>
+		<ul class="dropdown">
+			<li><a href="{% url 'dashboard' %}">My Recipes</a><li>
+			<li><a href="{% url 'mycomments' %}">My Comments</a></li>
+		</ul>
+	</li>
+{% else %}
+	<li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+	<li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Sign Up</a></li>
+{% endif %}

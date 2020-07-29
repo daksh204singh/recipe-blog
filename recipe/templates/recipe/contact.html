@@ -1,0 +1,75 @@
+{% extends "recipe/base.html" %}
+{% load static %}
+{% block content %}
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url({% static 'recipe/img/bg-img/breadcumb4.jpg' %});">
+	<div class="container h-100">
+		<div class="row h-100 align-items-center">
+			<div class="col-12">
+				<div class="breadcumb-text text-center">
+					<h2>Contact info</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
+
+
+<!-- ##### Contact Information Area Start ##### -->
+<div class="contact-information-area section-padding-80">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="logo mb-80">
+					<img src="{% static 'recipe/img/core-img/logo.png' %}" alt="">
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<!-- Contact Text -->
+			<div class="col-12 col-lg-5">
+				<div class="contact-text">
+					<p>What can we help you With?</p>
+				</div>
+			</div>
+
+			<div class="col-12 col-lg-3">
+				<!-- Single Contact Information -->
+				<div class="single-contact-information mb-30">
+					<h6>Address:</h6>
+					<p></p>
+				</div>
+				<!-- Single Contact Information -->
+				<div class="single-contact-information mb-30">
+					<h6>Phone:</h6>
+					<p>1234567890 <br>1234567890</p>
+				</div>
+				<!-- Single Contact Information -->
+				<div class="single-contact-information mb-30">
+					<h6>Email:</h6>
+					<p>Deliciousrecipies@gmail.com</p>
+				</div>
+			</div>
+
+			<!-- Newsletter Area -->
+			<div class="col-12 col-lg-4">
+				<div class="newsletter-form bg-img bg-overlay" style="background-image: url({% static 'recipe/img/bg-img/bg1.jpg' %});">
+					<form action="#" method="post">
+						<input type="email" name="email" placeholder="Subscribe to newsletter">
+						<button type="submit" class="btn delicious-btn w-100">Subscribe</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ##### Contact Information Area End ##### -->
+
+{% comment %} <!-- ##### Google Maps ##### -->
+<div class="map-area">
+	<div id="googleMap"></div>
+</div> {% endcomment %}
+
+{% endblock %}

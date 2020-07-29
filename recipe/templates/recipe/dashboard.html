@@ -1,0 +1,95 @@
+{% extends 'recipe/base.html' %}
+{% load static %}
+{% load recipe_extras %}
+{% block content %}
+<style>
+.search-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url({% static 'recipe/img/bg-img/breadcumb3.jpg' %});">
+	<div class="container h-100">
+		<div class="row h-100 align-items-center">
+			<div class="col-12">
+				<div class="breadcumb-text text-center">
+					{% if user.is_authenticated %}
+						<h2>Hello, {{user.username}}!</h2>
+					{% else %}
+						<h2>Hello, World!</h2>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
+
+<div class="about-area section-padding-80">
+    <div class="container">        
+        <div class="row">
+            <div class="col-12">	
+				<div class="text-center">
+					<h3 style="color: rgb(0, 130, 0);"><span class="border-bottom">My Posted Recipes</span></h4><br>
+					<br><br>
+				</div>
+				{% if recipes|length %}
+				<div class="row" style="padding-left: 4vw;">
+				{% for irecipe in recipes %}
+				<div class="col-12 col-sm-6 col-lg-4 border-bottom mb-30">
+					<div class="single-best-receipe-area mb-30" style="width: 250px;">
+						<img src="{{irecipe.recipe_img1.url}}" style="width: 250px;height: 180px; border-radius: 10%;" alt="">
+						<div class="receipe-content">
+							<a href="/recipe/receipedetail/{{irecipe.id}}/">
+								<h5>{{irecipe.recipe_name}}</h5>
+							</a>
+							<a href="/recipe/{{irecipe.recipe_cat.id}}/">
+								{{ irecipe.recipe_cat}}
+							</a>
+							<br><span>{{ irecipe.recipe_date}}<span>
+							<div class="ratings">
+								{% with ''|center:irecipe.rating as range %}
+									{% for i in range %}
+										<i class="fa fa-star" aria-hidden="true"></i>
+									{% endfor %}
+									{% with 5|subtract:irecipe.rating as emptyVal%}
+										{% with ''|center:emptyVal as emptyRange %}
+											{% for i in emptyRange %}
+												<i class="fa fa-star-o" aria-hidden="true"></i>
+											{% endfor %}
+										{% endwith %}
+									{% endwith %}
+								{% endwith %}
+								({{ irecipe.votes }})
+							</div>
+							<br>
+							<div>
+								<a href="/recipe/editRecipe/{{irecipe.id}}">
+									<button type="button" class="btn btn-default btn-sm">
+										<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+									</button>
+								</a> 
+									&nbsp;	&nbsp;
+								<a href="/recipe/deleteRecipe/{{irecipe.id}}">
+									<button type="button" class="btn btn-default btn-sm">
+										<i class="fa fa-times" aria-hidden="true"></i>
+									</button>
+								</a>
+							</div>
+						</div>
+					</div>
+            	</div>
+				{% endfor %}
+				</div>
+				{% else %}
+					<h4 class="receipe-headline" style="text-align: center;">No recipes posted yet!</h4>
+					<img src="{% static 'recipe/img/bg-img/no_results_found.png' %}" style="height: 20vh;" class="search-img">   
+				{% endif %}
+			</div>
+		</div>
+    </div>
+</div>
+{% endblock %}

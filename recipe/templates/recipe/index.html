@@ -1,0 +1,183 @@
+{% extends "recipe/base.html" %}
+{% load static %}
+{% load recipe_extras %}
+{% block content %}
+
+<!-- ##### Hero Area Start ##### -->
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        {% for recipe in rhead %}
+        <!-- Single Hero Slide -->
+        <div class="single-hero-slide bg-img" style="background-image: url({{ recipe.recipe_img1.url }});">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                        <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms">
+                            <h2 data-animation="fadeInUp" data-delay="300ms">Delicious Recipes Top 5</h2>
+                            <h2 data-animation="fadeInUp" style="font-size: 170%;" data-delay="300ms">{{recipe.recipe_name}}</h2>
+                            <p data-animation="fadeInUp" data-delay="700ms">
+                                Prep Time: {{recipe.recipe_preptime}}<br>
+                                Cook Time: {{recipe.recipe_cooktime}}<br>
+                                {{recipe.votes}} Comments
+                            </p>
+
+                            <a href="/recipe/receipedetail/{{recipe.id}}/" class="btn delicious-btn" data-animation="fadeInUp" data-delay="1000ms">See Receipe</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<!-- ##### Hero Area End ##### -->
+
+<!-- ##### About Area Start ##### -->
+<section class="about-area section-padding-80 border-bottom">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-heading">
+					<h3>Delicious Recipes</h3>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<h6 class="sub-heading pb-5">Delicious recipes is a community where you can share your own favorite recipes. Try out new recipes. Comment recipes on recipes. You can view  <a href="#category" style="text-decoration: underline;color: rgb(0, 195, 30);font-size: 100%;">Recipes by Category</a> or view our  <a href="#recipes" style="text-decoration: underline;color: rgb(0, 195, 30); font-size: 100%;">Community's Top 20 Recipes</a>!</h6>
+			</div>
+		</div>
+
+		<div class="row align-items-center mt-70">
+			<!-- Single Cool Fact -->
+			<div class="col-12 col-sm-6 col-lg-4">
+				<div class="single-cool-fact">
+					<img src="{% static 'recipe/img/core-img/recipe.png' %}" style="width:100px;" alt="">
+					<h3><span class="counter">{{rcount}}</span></h3>
+					<h6>Amazing receipies</h6>
+				</div>
+			</div>
+            <!-- Single Cool Fact -->
+			<div class="col-12 col-sm-6 col-lg-4">
+				<div class="single-cool-fact">
+					<img src="{% static 'recipe/img/core-img/avatar.png' %}" style="width:100px;" alt="">
+					<h3><span class="counter">{{usercount}}</span></h3>
+					<h6>Users</h6>
+				</div>
+			</div>
+
+            <!-- Single Cool Fact -->
+			<div class="col-12 col-sm-6 col-lg-4">
+				<div class="single-cool-fact">
+					<img src="{% static 'recipe/img/core-img/comments.png' %}" style="width:100px;" alt="">
+					<h3><span class="counter">{{comment_count}}</span></h3>
+					<h6>Comments</h6>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<img class="mb-70" src="{% static 'recipe/img/bg-img/about.png' %}" alt="">
+				<p class="text-center">Delicious recipes is the original food-focused social network created for cooks by cooks; where everyone plays a part in helping cooks discover and share the joy of home cooking
+Make it. Our pantry is stocked with 500 million bites of inspiration to help guide you from inspiration to celebration with your next kitchen creation. Love it. Did you make it? Love it! Then pass it on. Post recipes, photos, reviews, I made its, collections and more telling your food tribe about your latest mouthwatering masterpiece. Share it. Sharing foods you crave and following the cooks you love helps us to feed your feed with lots of recipe awesomeness handpicked just for you. Get to know our team at <a href="{% url 'about' %}" style="text-decoration: underline;color: rgb(0, 195, 30);font-size: 100%;">about us</a> page.</p>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- ##### About Area End ##### -->
+
+
+<!-- ##### Best category Area Start ##### -->
+<section id="category" class="best-category-area border-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading">
+                    <br><br>
+                    <h2>Our Recipes by Category</h2>
+                    <p style="font-size: 120%; font-weight: 520;">
+                        Whether you’re looking for a recipe for right nowsomething special for later,<br>
+                        find the recipe category you’re looking for and get started.
+                    <p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Single Best Receipe Area -->
+            {% for i in cdata %}
+            <div class="col-12 col-sm-6 col-lg-4" style="padding: 25px;">
+                <div class="single-best-receipe-area mb-30">
+                    <img src="{{i.cat_icon.url }}" style="width: 400px;height: 230px; border-radius: 10%;" alt="">
+                    <div class="receipe-content receipe-headline">
+                        <a href="{{i.id}}/">
+                            <h5 style="border-bottom: 1.5px solid rgb(0, 195, 30); display: inline;">{{i.cat_name}}</h5>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ##### Small Receipe Area Start ##### -->
+<section  class="small-receipe-area section-padding-80-0">
+    <div class="container">
+        <div class="row" id="recipes">
+            <div class="col-12">
+                <div class="section-heading">
+                    <br><br>
+                    <h2>Our Community's Top 20</h2>
+                    <p style="font-size: 120%; font-weight: 520;">
+                        We've rounded up the best recipes ever. They're our most loved, commented and top-rated from our Delicious Recipes community,<br>
+                        all in one place. These apps, mains, desserts and more are guaranteed delicious!
+                    <p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for recipe in rdata %}
+            <!-- Small Receipe Area -->
+            <div class="col-12 col-sm-6 col-lg-4">
+                <div class="single-small-receipe-area d-flex">
+                    <!-- Receipe Thumb -->
+                    <div class="receipe-thumb">
+                        <img src="{{recipe.recipe_img1.url}}" style="width: 100%; height: 50%;" alt="">
+                    </div>
+                    <!-- Receipe Content -->
+                    <div class="receipe-content">
+                        <span>{{recipe.recipe_date}}</span>
+                        <a href="/recipe/receipedetail/{{recipe.id}}/">
+                            <h5>{{recipe.recipe_name}}</h5>
+                        </a>
+                        <div class="ratings">
+                            {% with ''|center:recipe.rating as range %}
+								{% for i in range %}
+									<i class="fa fa-star" aria-hidden="true"></i>
+								{% endfor %}
+								{% with 5|subtract:recipe.rating as emptyVal%}
+									{% with ''|center:emptyVal as emptyRange %}
+										{% for i in emptyRange %}
+											<i class="fa fa-star-o" aria-hidden="true"></i>
+										{% endfor %}
+									{% endwith %}
+								{% endwith %}
+							{% endwith %}
+                        </div>
+                        <p>{{recipe.votes}} Comments</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- ##### Small Receipe Area End ##### -->
+
+{% endblock %}

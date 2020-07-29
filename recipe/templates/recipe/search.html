@@ -1,0 +1,71 @@
+{% extends 'recipe/base.html'%}
+{% load static %}
+{% block content %}
+<style>
+.search-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url({% static 'recipe/img/bg-img/breadcumb4.jpg' %});">
+	<div class="container h-100">
+		<div class="row h-100 align-items-center">
+			<div class="col-12">
+				<div class="breadcumb-text text-center">
+					<h2>Search Area</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
+
+<!-- ##### Best Receipe Area Start ##### -->
+<section class="best-receipe-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading">
+                    <br>
+                    <h3 style="color: rgb(0, 130, 0);"><span class="border-bottom">Search Results</span></h3>
+                </div>
+            </div>
+        </div>
+        {% if src|length %}
+        <div class="row">
+            <!-- Single Best Receipe Area -->
+            {% for i in src %}
+            <div class="col-12 col-sm-6 col-lg-4">
+                <div class="single-best-receipe-area mb-30">
+                    <img src="{{i.recipe_img1.url}}" style="width: 400px;height: 230px; border-radius: 10%;" alt="">
+                    <div class="receipe-content">
+                        <a href="/recipe/receipedetail/{{i.id}}/">
+                            <h5>{{i.recipe_name}}</h5>
+                        </a>
+                        <div class="ratings">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			{% endfor %}
+        </div>
+        {% else %}
+        <div class ="row">
+            <div class="col-12">
+                <h4 class="receipe-headline" style="text-align: center;">No results found!</h4>
+                <img src="{% static 'recipe/img/bg-img/no_results_found.png' %}" style="height: 20vh;" class="search-img">   
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

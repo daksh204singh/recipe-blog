@@ -1,0 +1,133 @@
+{% extends 'recipe/base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+	.profileImage img {
+		display: block; 
+		margin-left: auto; 
+		margin-right: auto; 
+		width: 200px;
+		height: 200px;
+		border-radius: 50%;
+	}
+</style>
+
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url({% static 'recipe/img/bg-img/breadcumb3.jpg' %});">
+	<div class="container h-100">
+		<div class="row h-100 align-items-center">
+			<div class="col-12">
+				<div class="breadcumb-text text-center">
+						<h2>My Profile</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
+<br><br>
+
+<form method="post"  enctype="multipart/form-data">
+	{% csrf_token %}
+	<div class="container">
+		<div class="row">
+				<div class="col-12" style="bottom: -8px;">
+					<div class="profileImage">
+						<h3 style="text-align: center; color: rgb(0, 130, 0);">{{ user.username }}</h3>
+						<img src="{{profile.profile_pic.url}}" alt="No Profile Pic" id="profilePic" width="200">
+						<br><br>
+					</div>
+				</div>
+				<br>
+
+				<div class="col-12 col-lg-2" style="bottom: -8px;">
+					<h6>Email</h6>
+				</div>
+				<div class="col-12 col-lg-10">
+					<input type="email" class="form-control" value="{{user.email}}" name="email">
+				</div>
+				<br><br><br>
+
+				<div class="col-12 col-lg-2" style="bottom: -8px;">
+					<h6>First Name</h6>
+				</div>
+				<div class="col-12 col-lg-10">
+					<input type="text" id="first-name" class="form-control" name="fname" value="{{user.first_name}}">
+				</div>
+				<br><br><br>
+
+				<div class="col-12 col-lg-2" style="bottom: -8px;">
+					<h6>Last Name</h6>
+				</div>
+				<div class="col-12 col-lg-10">
+					<input type="text" id="last-name" class="form-control" name="lname" value="{{user.last_name}}">
+				</div>
+				<br><br><br>
+
+				<div class="col-12 col-lg-2" style="bottom: -8px;">
+					<h6>Phone Number</h6>
+				</div>
+				<div class="col-12 col-lg-10">
+					<input type="tel" id="phone-number" class="form-control" name="phone" value="{{profile.phone}}">
+				</div>
+				<br><br><br>
+
+				<div class="col-12 col-lg-2" style="bottom: -8px;">
+					<h6>City</h6>
+				</div>
+				<div class="col-12 col-lg-10">
+					<input type="text" id="city" class="form-control" name="city" value="{{profile.city}}">
+				</div>
+				<br><br><br>
+
+				<div class="col-12 col-lg-2" style="bottom: -8px;">
+					<h6>Country</h6>
+				</div>
+				<div class="col-12 col-lg-10">
+					<input type="text" id="country" class="form-control" name="country" value="{{profile.country}}">
+				</div>
+				<br><br><br>
+
+				<div class="col-12 col-lg-2" style="bottom: -8px;">
+					<h6>User's Bio</h6>
+				</div>
+				<div class="col-12 col-lg-10">
+					<textarea name="userBio" class="form-control" id="user-bio" cols="30" rows="5" placeholder="User's Bio">{{profile.bio}}</textarea>
+				</div>
+				<br><br><br>
+				<br><br><br>
+				<br>
+
+				<div class="col-12 col-lg-2" style="bottom: -8px;">
+					<h6>Upload Profile Pic</h6>
+				</div>
+				<div class="col-12 col-lg-10">
+					<input type="file" onchange="readURL(this);" class="form-control"  name="userProfilePic">
+				</div>
+				<br><br><br>
+		</div>
+
+		<div class="col-12 text-center">
+			<button class="btn delicious-btn mt-30" type="submit">Update Profile</button>
+		</div>
+		<br><br><br>
+	</div>
+</form>
+<script>
+	function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function (e) {
+					$('#profilePic')
+						.attr('src', e.target.result);
+				};
+
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+</script>
+
+
+{% endblock %}

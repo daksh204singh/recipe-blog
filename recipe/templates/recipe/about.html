@@ -1,0 +1,74 @@
+{% extends "recipe/base.html" %}
+{% load static %}
+{% block content %}
+<style>
+    .social-icons li{
+    display:inline;
+    }
+</style>
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url({% static 'recipe/img/bg-img/breadcumb1.jpg' %});">
+	<div class="container h-100">
+		<div class="row h-100 align-items-center">
+			<div class="col-12">
+				<div class="breadcumb-text text-center">
+					<h2>About us</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
+
+    <div class="best-features about-features">
+      <div class="container border-bottom section-padding-0-80">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-heading">
+              <br>
+              <h2 style="color: rgb(0, 130, 0);"><span class="border-bottom">Our Background</span></h2>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="right-image">
+              <img src="{% static 'login/vendor/about.jpg'%}" height="350" >
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="left-content">
+              <h4 style="color: rgb(0, 130, 0);"><span class="border-bottom">Who we are &amp; What we do?</span></h4>
+              <p> Delicious recipes is the original food-focused social network created for cooks by cooks; where everyone plays a part in helping cooks discover and share the joy of home cooking<br>
+Make it.
+
+Our pantry is stocked with 500 million bites of inspiration to help guide you from inspiration to celebration with your next kitchen creation.
+Love it.
+
+Did you make it? Love it! Then pass it on. Post recipes, photos, reviews, I made its, collections and more telling your food tribe about your latest mouthwatering masterpiece.
+Share it.
+
+				  Sharing foods you crave and following the cooks you love helps us to feed your feed with lots of recipe awesomeness handpicked just for you.</p>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <div class="team-members">
+      <div class="container section-padding-0-80">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-heading">
+              <br>
+              <h2 style="color: rgb(0, 130, 0);"><span class="border-bottom">Our Team Members<span></h2>
+            </div>
+          </div>
+          <div class="col-md-4">
+          </div>
+          <div class="col-md-4">
+          </div>
+        </div>
+      </div>
+     </div>
+
+{% endblock %}

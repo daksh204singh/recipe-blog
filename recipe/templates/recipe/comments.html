@@ -1,0 +1,87 @@
+{% extends 'recipe/base.html' %}
+{% load static %}
+{% load recipe_extras %}
+{% block content %}
+<style>
+.search-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+
+<!-- ##### Breadcumb Area Start ##### -->
+<div class="breadcumb-area bg-img bg-overlay" style="background-image: url({% static 'recipe/img/bg-img/breadcumb3.jpg' %});">
+	<div class="container h-100">
+		<div class="row h-100 align-items-center">
+			<div class="col-12">
+				<div class="breadcumb-text text-center">
+					{% if user.is_authenticated %}
+						<h2>Hello, {{user.username}}!</h2>
+					{% else %}
+						<h2>Hello, World!</h2>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
+
+<div class="about-area section-padding-80">
+    <div class="container">        
+        <div class="row">
+            <div class="col-12">	
+				<div class="text-center">
+					<h3 style="color: rgb(0, 130, 0);"><span class="border-bottom">My Posted Comments</span></h4><br>
+					<br><br>
+				</div>
+				{% if comments|length %}
+				{% for comment in comments %}
+				<div class="col-12 border-bottom">
+					<div class="row">
+						<div class="col-12 col-lg-6">
+							<span style="margin-left: 10px; display: inline-block;">
+								<img src="{{comment.recipe.recipe_img1.url}}" width="120px" style="border-bottom: 2px solid rgb(0, 195, 30);">&nbsp;&nbsp;
+								<a href="/recipe/receipedetail/{{comment.recipe.id}}" style="border-bottom: 1px solid rgb(0, 195, 30); color: blue; font-size: 18px;">{{comment.recipe}},</a>
+								<i style="font-size: 12px; padding-left: 5px;"> {{comment.create_at}}</i>
+							</span>	
+						</div>
+
+						<div class="col-12 col-lg-6" align="right" style="bottom: -16px;">
+							<div class="receipe-ratings my-5" style="display: inline;">
+								<div class="ratings" id="{{comment.id}}" style="display: inline;">
+									{% with ''|center:comment.rate as range %}
+										{% for i in range %}
+											<i class="fa fa-star" aria-hidden="true"></i>
+										{% endfor %}
+										{% with 5|subtract:comment.rate as emptyVal%}
+											{% with ''|center:emptyVal as emptyRange %}
+												{% for i in emptyRange %}
+													<i class="fa fa-star-o" aria-hidden="true"></i>
+												{% endfor %}
+											{% endwith %}
+										{% endwith %}
+									{% endwith %}
+								</div>
+							</div>	
+						</div>
+					</div>
+					<div class="col-12" style="margin-top: 15px;">
+						<span><h6><i>"{{comment.subject}}"</i></h6></span>
+					</div>
+					<div class="col-12" style="margin-top: 5px;">
+						<p style="font-weight: normal; color: black;">{{comment.message}}</p>
+					</div>
+				</div>
+				<br><br>
+				{% endfor %}
+				{% else %}
+					<h4 class="receipe-headline" style="text-align: center;">No comments posted yet!</h4>
+					<img src="{% static 'recipe/img/bg-img/no_results_found.png' %}" style="height: 20vh;" class="search-img">   
+				{% endif %}
+			</div>
+		</div>
+    </div>
+</div>
+{% endblock %}
